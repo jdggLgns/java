@@ -224,6 +224,37 @@ public class CustomerTest {
     }
 
     @Test
+    public void statementFormatTest() {
+        Customer customer = new Customer("Customer Name");
+        Movie regularMovie = new RegularMovie("Regular Movie");
+        Movie newReleaseMovie = new NewReleaseMovie("New Release Movie");
+        Movie childrenMovie = new ChildrenMovie("Children Movie");
+
+        customer.addRental(new Rental(regularMovie, 3));
+        customer.addRental(new Rental(newReleaseMovie, 1));
+        customer.addRental(new Rental(childrenMovie, 4));
+
+        String statement = customer.statement();
+
+        String result = new StatementBuilder()
+                .customerName(customer.getName())
+                .movie(regularMovie.getTitle(), regularMovie.getCharge(3))
+                .movie(newReleaseMovie.getTitle(), newReleaseMovie.getCharge(1))
+                .movie(childrenMovie.getTitle(), childrenMovie.getCharge(4))
+                .totalAmount(
+                        regularMovie.getCharge(3) +
+                                newReleaseMovie.getCharge(1) +
+                                childrenMovie.getCharge(4))
+                .frequentRenterPoints(
+                        regularMovie.getFrequentRenterPoints(3) +
+                                newReleaseMovie.getFrequentRenterPoints(1) +
+                                childrenMovie.getFrequentRenterPoints(4)).build();
+
+        assertEquals(result, statement);
+    }
+
+
+    @Test
     public void rentalTest() {
         String customerName = "customerName";
         Customer customer = new Customer(customerName);
