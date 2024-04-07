@@ -154,6 +154,32 @@ public class CustomerTest {
     }
 
     @Test
+    public void chargeForRegularMovie1DayTest() {
+        Movie movie = new RegularMovie("Regular Movie");
+        Rental rental = new Rental(movie, 1);
+        Customer customer = new Customer("Customer Name");
+        customer.addRental(rental);
+
+        String statement = customer.statement();
+        String result = new StatementBuilder().customerName(customer.getName()).movie(movie.getTitle(), 2)
+                .totalAmount(2).frequentRenterPoints(1).build();
+        assertEquals(result, statement);
+    }
+
+    @Test
+    public void chargeForNewReleaseMovie2DaysTest() {
+        Movie movie = new NewReleaseMovie("New Release Movie");
+        Rental rental = new Rental(movie, 2);
+        Customer customer = new Customer("Customer Name");
+        customer.addRental(rental);
+
+        String statement = customer.statement();
+        String result = new StatementBuilder().customerName(customer.getName()).movie(movie.getTitle(), 3)
+                .totalAmount(3).frequentRenterPoints(2).build();
+        assertEquals(result, statement);
+    }
+
+    @Test
     public void rentalTest() {
         String customerName = "customerName";
         Customer customer = new Customer(customerName);
