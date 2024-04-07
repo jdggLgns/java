@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Customer {
 
-	private String name;
+	private final String name;
 	
-	private List<Rental> rentals;
+	private final List<Rental> rentals;
 
 	public Customer(String name) {
 		this.name = name;
-		rentals = new ArrayList<Rental>();
+		rentals = new ArrayList<>();
 	}
 
 	public void addRental(Rental rental) {
