@@ -180,6 +180,50 @@ public class CustomerTest {
     }
 
     @Test
+    public void frequentRenterPointsForNewRelease2DaysTest() {
+        Movie newReleaseMovie = new NewReleaseMovie("New Release Movie");
+        Rental newReleaseRental = new Rental(newReleaseMovie, 2);
+        Customer customer = new Customer("Customer Name");
+        customer.addRental(newReleaseRental);
+
+        String statement = customer.statement();
+
+        String result = new StatementBuilder().customerName(customer.getName()).movie(newReleaseMovie.getTitle(), newReleaseMovie.getCharge(2))
+                .totalAmount(newReleaseMovie.getCharge(2)).frequentRenterPoints(2).build();
+        assertEquals(result, statement);
+    }
+
+    @Test
+    public void frequentRenterPointsForNewRelease1DayTest() {
+        Movie newReleaseMovie = new NewReleaseMovie("New Release Movie");
+        Rental newReleaseRental = new Rental(newReleaseMovie, 1);
+
+        Customer customer = new Customer("Customer Name");
+        customer.addRental(newReleaseRental);
+
+        String statement = customer.statement();
+
+        String result = new StatementBuilder().customerName(customer.getName()).movie(newReleaseMovie.getTitle(), newReleaseMovie.getCharge(1))
+                .totalAmount(newReleaseMovie.getCharge(1)).frequentRenterPoints(1).build();
+        assertEquals(result, statement);
+    }
+
+    @Test
+    public void frequentRenterPointsForNewRelease3DaysTest() {
+        Movie newReleaseMovie = new NewReleaseMovie("New Release Movie");
+        Rental newReleaseRental = new Rental(newReleaseMovie, 3);
+
+        Customer customer = new Customer("Customer Name");
+        customer.addRental(newReleaseRental);
+
+        String statement = customer.statement();
+
+        String result = new StatementBuilder().customerName(customer.getName()).movie(newReleaseMovie.getTitle(), newReleaseMovie.getCharge(3))
+                .totalAmount(newReleaseMovie.getCharge(3)).frequentRenterPoints(2).build();
+        assertEquals(result, statement);
+    }
+
+    @Test
     public void rentalTest() {
         String customerName = "customerName";
         Customer customer = new Customer(customerName);
