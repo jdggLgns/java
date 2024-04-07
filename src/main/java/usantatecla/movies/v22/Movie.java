@@ -4,7 +4,7 @@ public abstract class Movie {
 
 	private final String title;
 
-	public Movie(String title) {
+	protected Movie(String title) {
 		this.title = title;
 	}
 
