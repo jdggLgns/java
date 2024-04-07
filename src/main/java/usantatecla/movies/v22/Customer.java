@@ -24,7 +24,7 @@ public class Customer {
 
 	public String statement() {
 		return "Rental Record for " + this.getName() + "\n" + rentals.stream()
-				.map(rental -> "\t" + rental.getMovie().getTitle() + "\t" + rental.getCharge() + "\n")
+				.map(rental -> "\t" + rental.getTitle() + "\t" + rental.getCharge() + "\n")
 				.reduce("", String::concat) +
 				"Amount owed is " + this.getTotalCharge() + "\n" +
 				"You earned " + this.getTotalFrequentRenterPoints() + " frequent renter points";
@@ -37,5 +37,4 @@ public class Customer {
 	private int getTotalFrequentRenterPoints() {
 		return rentals.stream().mapToInt(Rental::getFrequentRenterPoints).sum();
 	}
-
 }
